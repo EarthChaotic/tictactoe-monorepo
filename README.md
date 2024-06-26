@@ -19,3 +19,5 @@
 FrontEnd ใช้ React ในการออกแบบโดยเขียน Function ต่างๆด้วยภาษา TypeScript
 
 Backend ใช้ JavaScript ในการเขียน API และใช้ MongoDB เป็นฐานข้อมูล
+
+โดยทำการรันทั้งสองอย่างพร้อมกันโดยใช้ Turborepo เข้ามาช่วยในการจัดการ
