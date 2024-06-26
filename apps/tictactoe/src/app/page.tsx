@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import styles from './page.module.css'
 import apiInstance from "@/instances/apiInstance";
-import { start } from "repl";
 
 const Home: React.FC = () => {
   const [boardSize, setBoardSize] = useState<number>(3);
@@ -129,14 +128,18 @@ const Home: React.FC = () => {
         setCurrentPlayer(player);
         setPlayerTurn(`Player ${player}'s Turn`);
       }
-      await setWhoWin('Player ' + selectedMatch.winner + ' Won!');
+      if (selectedMatch.winner == 'X' || selectedMatch.winner == 'O') {
+        await setWhoWin('Player ' + selectedMatch.winner + ' Won!');
+      }
+      else {
+        await setWhoWin('This Match was Draw!');
+      }
+
 
     } catch (error) {
       console.error(error);
     }
   };
-
-
 
   const checkWin = (board: string[][], player: string): boolean => {
     const size = board.length;
@@ -176,8 +179,8 @@ const Home: React.FC = () => {
 
         <button onClick={() => {
           startGame();
-        }}>Start Game</button>
-        <div style={{ textAlign: 'center', margin: 10 }}>
+        }} style={{marginLeft:10}}>Start Game</button>
+        <div style={{ textAlign: 'center', margin: 20 }}>
           <select value={selectedMatch} onChange={(e) => {
             setSelectedMatch(e.target.value);
           }}>
@@ -188,12 +191,9 @@ const Home: React.FC = () => {
               </option>
             ))}
           </select>
-
-
-
-          <button onClick={() => replayMatch(selectedMatch)}>Replay Match</button>
+          <button onClick={() => replayMatch(selectedMatch)} style={{ marginLeft: 20 }}>Replay Match</button>
         </div>
-        <p id="PlayerTurn">{playerTurn}</p>
+        <h3>{playerTurn}</h3>
         <div
           id="board"
           className={styles.board}
